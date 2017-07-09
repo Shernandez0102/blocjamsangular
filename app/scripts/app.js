@@ -14,6 +14,7 @@
          })
           .state('album', {
               url: '/album',
+              controller: 'AlbumsCtrl as album',
               templateUrl: '/templates/album.html'
 
         })
