@@ -2,7 +2,7 @@
      function AlbumsCtrl() {
        this.albumData = albumPicasso;
      }
-     }
+     
 
      angular
          .module('blocJams')
