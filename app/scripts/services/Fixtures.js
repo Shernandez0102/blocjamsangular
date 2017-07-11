@@ -36,6 +36,13 @@
                 return albumPicasso;
             };
 
+<<<<<<< HEAD
+=======
+            Fixtures.getCollection = function(numberOfAlbums) {
+                return albumPicasso.push;
+            };
+
+>>>>>>> Assignment-6-Services1
         return Fixtures;
     }
 
