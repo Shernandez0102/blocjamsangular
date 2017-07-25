@@ -1,8 +1,27 @@
 (function() {
-     function SongPlayer() {
+     function SongPlayer(Fixtures) {
           var SongPlayer = {};
 
-          var currentSong = null;
+
+          var currentAlbum = Fixtures.getAlbum();
+
+
+          var getSongIndex = function(song) {
+               return currentAlbum.songs.indexOf(song);
+           };
+
+          /**
+          * @desc Active song object from list of songs
+          * @type {Object}
+          */
+
+
+
+
+
+
+
+          SongPlayer.currentSong = null;
 
           /**
  * @desc Buzz object audio file
@@ -28,32 +47,55 @@
         preload: true
     });
 
-    currentSong = song;
+    SongPlayer.currentSong = song;
  };
+
+// @function play
+//@desc Play current or new song
+//@param {Object} song
 
 
         SongPlayer.play = function(song) {
-        if (currentSong !== song) {
+        song = song || SongPlayer.currentSong;
+        if (SongPlayer.currentSong !== song) {
           setSong(song);
-         currentBuzzObject.play();
-         song.playing = true;
-
-
-         } else if (currentSong === song) {
+          playSong(song);
+     } else if (SongPlayer.currentSong === song) {
          if (currentBuzzObject.isPaused()) {
-             currentBuzzObject.play();
+             playSong(song);
          }
-     }
-     };
+    }
+ };
+
+ // @function pause
+ //@desc Pause current song
+ //@param {Object} song
+
 
      SongPlayer.pause = function(song) {
+    song = song || SongPlayer.currentSong;
      currentBuzzObject.pause();
      song.playing = false;
      };
           return SongPlayer;
-     }
+     };
+
+     SongPlayer.previous = function() {
+     var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+     currentSongIndex--;
+
+     if (currentSongIndex < 0) {
+             currentBuzzObject.stop();
+             SongPlayer.currentSong.playing = null;
+
+           } else {
+            var song = currentAlbum.songs[currentSongIndex];
+            setSong(song);
+            playSong(song);
+        }
+ };
 
      angular
          .module('blocJams')
-         .factory('SongPlayer', SongPlayer);
+         .factory('SongPlayer', ['Fixtures', SongPlayer]);
  })();
