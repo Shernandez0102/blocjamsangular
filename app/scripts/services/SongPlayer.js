@@ -6,40 +6,23 @@
           var currentAlbum = Fixtures.getAlbum();
 
 
-          var getSongIndex = function(song) {
-               return currentAlbum.songs.indexOf(song);
-           };
 
-          /**
-          * @desc Active song object from list of songs
-          * @type {Object}
-          */
+  // @desc Buzz object audio file
+ //@type {Object}
 
-
-
-
-
-
-
-          SongPlayer.currentSong = null;
-
-          /**
- * @desc Buzz object audio file
- * @type {Object}
- */
           var currentBuzzObject = null;
 
 
-          /**
-           * @function setSong
-           * @desc Stops currently playing song and loads new audio file as currentBuzzObject
-           * @param {Object} song
-           */
+
+  // @function setSong
+  // @desc Stops currently playing song and loads new audio file as currentBuzzObject
+  // @param {Object} song
+
 
     var setSong = function(song) {
     if (currentBuzzObject) {
         currentBuzzObject.stop();
-        currentSong.playing = null;
+        SongPlayer.currentSong.playing = null;
     }
 
     currentBuzzObject = new buzz.sound(song.audioUrl, {
@@ -49,9 +32,35 @@
 
     SongPlayer.currentSong = song;
  };
+
  //@function playSong
  //@desc plays song and sets song.playing to true so album.html changes play/pause icon
  //@param {Object} song
+ var playSong = function(song) {
+               currentBuzzObject.play();
+               song.playing = true;
+           }
+
+
+
+
+// @function getSongIndex
+// @des gets the song index so we can then manipulate
+// @param {Object} song
+
+ var getSongIndex = function(song) {
+      return currentAlbum.songs.indexOf(song);
+  };
+
+/**
+* @desc Active song object from list of songs
+* @type {Object}
+*/
+
+
+SongPlayer.currentSong = null;
+
+
 
 // @function play
 //@desc Play current or new song
@@ -74,15 +83,12 @@
  //@desc Pause current song
  //@param {Object} song
 
-
-
      SongPlayer.pause = function(song) {
     song = song || SongPlayer.currentSong;
      currentBuzzObject.pause();
      song.playing = false;
      };
-          return SongPlayer;
-     };
+
 
      SongPlayer.previous = function() {
      var currentSongIndex = getSongIndex(SongPlayer.currentSong);
@@ -98,6 +104,8 @@
             playSong(song);
         }
  };
+ return SongPlayer;
+}
 
      angular
          .module('blocJams')
