@@ -13,7 +13,7 @@
          replace: true,
          restrict: 'E',
          scope: { },
-         link: function(scope, element, attributes)
+         link: function(scope, element, attributes){
          scope.value = 0;
               scope.max = 100;
 
