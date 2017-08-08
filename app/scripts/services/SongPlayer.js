@@ -64,7 +64,7 @@
 
     //@des current song volume from 0 to 100
     //@type {Number}
-    SongPlayer.volume = 60;
+    SongPlayer.volume = null;
 
   //@function setCurrentTime
   //@desc Set current time (in seconds) of currently playing song
